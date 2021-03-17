@@ -71,6 +71,13 @@ const findWinner = ({ position, person }, state, size, length) => {
       return person;
     }
 
+    if (
+      rowBoundaryMin + index > rowBoundaryMax ||
+      columnBoundaryMin + index > columnBoundaryMax
+    ) {
+      count = 0;
+      break;
+    }
     const id = `${rowBoundaryMin + index}-${columnBoundaryMin + index}`;
 
     if (state[id] === person) {
@@ -78,8 +85,6 @@ const findWinner = ({ position, person }, state, size, length) => {
     } else {
       count = 0;
     }
-
-    if (index === columnBoundaryMax) count = 0;
   }
 
   // Вторая диагональ
@@ -97,14 +102,12 @@ const findWinner = ({ position, person }, state, size, length) => {
     }
 
     const id = `${rowBoundaryMin + index}-${columnBoundaryMax - index}`;
-
+    if (person === 0) console.log(id);
     if (state[id] === person) {
       count++;
     } else {
       count = 0;
     }
-
-    if (index === columnBoundaryMax) count = 0;
   }
 
   return null;
